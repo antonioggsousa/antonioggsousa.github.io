@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Recent &amp; Upcoming Talks on António Sousa</title>
+    <link>https://antonioggsousa.github.io/talk/</link>
+    <description>Recent content in Recent &amp; Upcoming Talks on António Sousa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 António Sousa</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://antonioggsousa.github.io/talk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Arctic microbiome during the winter-spring transition: nitrogen-cycle genes</title>
+      <link>https://antonioggsousa.github.io/talk/poster/poster_polar2018/</link>
+      <pubDate>Wed, 20 Jun 2018 16:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/talk/poster/poster_polar2018/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pelagic microbial communities below drifting Arctic sea-ice: structure and N-functions</title>
+      <link>https://antonioggsousa.github.io/talk/talks/invited_seminar/</link>
+      <pubDate>Fri, 18 May 2018 12:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/talk/talks/invited_seminar/</guid>
+      <description>Pelagic microbial communities are a key component of the Arctic Ocean when evaluating the ecological impact of the thinner Arctic icescape, as they constitute the basis of the marine food web and biogeochemical cycles. The Norwegian young sea ICE expedition 2015 that took place in the ice pack north of Svalbard, between January-June, provides the environmental context for the high-throughput Illumina amplicon and metagenomic sequencing data aiming to improve current knowledge about the structure of the Arctic’s microbiota and key nitrogen-cycling functions of the Arctic Ocean.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 3.2.0">
+  <meta name="generator" content="Hugo 0.53" />
+  <meta name="author" content="António Sousa">
+
+  
+  
+  
+  
+    
+  
+  <meta name="description" content="Introduction First of all you need to understand the data before start. Several considerations should be taken into account before the data analysis begin depending on the sequencing technology, library preparation/chemistry, and amplicon region chosen. This tutorial has the purpose to preprocess/filter, assign taxonomy, and explore diversity patterns of 16S rRNA amplicon sequencing data from Illumina MiSeq with the new version of QIIME - QIIME2. In addition, we wil use the 16S taxonomic profiles to predict metagenomic content with PICRUSt.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://antonioggsousa.github.io/tutorial/example/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" crossorigin="anonymous">
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  <link rel="stylesheet" href="/styles.css">
+  
+
+  
+  
+  
+
+  
+  <link rel="alternate" href="https://antonioggsousa.github.io/index.xml" type="application/rss+xml" title="António Sousa">
+  <link rel="feed" href="https://antonioggsousa.github.io/index.xml" type="application/rss+xml" title="António Sousa">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://antonioggsousa.github.io/tutorial/example/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@antonioggsousa">
+  <meta property="twitter:creator" content="@antonioggsousa">
+  
+  <meta property="og:site_name" content="António Sousa">
+  <meta property="og:url" content="https://antonioggsousa.github.io/tutorial/example/">
+  <meta property="og:title" content="QIIME2 &amp; PICRUSt tutorials | António Sousa">
+  <meta property="og:description" content="Introduction First of all you need to understand the data before start. Several considerations should be taken into account before the data analysis begin depending on the sequencing technology, library preparation/chemistry, and amplicon region chosen. This tutorial has the purpose to preprocess/filter, assign taxonomy, and explore diversity patterns of 16S rRNA amplicon sequencing data from Illumina MiSeq with the new version of QIIME - QIIME2. In addition, we wil use the 16S taxonomic profiles to predict metagenomic content with PICRUSt."><meta property="og:image" content="https://antonioggsousa.github.io/img/aggs.jpg">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2018-09-09T00:00:00&#43;01:00">
+  
+  <meta property="article:modified_time" content="2018-09-09T00:00:00&#43;01:00">
+  
+
+  
+
+  
+
+  <title>QIIME2 &amp; PICRUSt tutorials | António Sousa</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">António Sousa</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#about">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#publications_selected">
+            
+            <span>Publications</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#posts">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#projects">
+            
+            <span>Projects</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/tutorial/">
+            
+            <span>Tutorials</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="/#contact">
+            
+            <span>Contact</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container-fluid docs">
+  <div class="row flex-xl-nowrap">
+    <div class="col-12 col-md-3 col-xl-2 docs-sidebar">
+      
+
+
+
+
+<form class="docs-search d-flex align-items-center">
+  <button class="btn docs-toggle d-md-none p-0 mr-3" type="button" data-toggle="collapse" data-target="#docs-nav" aria-controls="docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    <span><i class="fas fa-bars"></i></span>
+  </button>
+
+  
+  <input name="q" type="search" class="form-control" id="search-query" placeholder="Search..." autocomplete="off">
+  
+</form>
+
+<nav class="collapse docs-links" id="docs-nav">
+  
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/tutorial/">Overview</a>
+
+  </div>
+  
+  <div class="docs-toc-item">
+    <a class="docs-toc-link" href="/tutorial/example/">EcoBioTec tutorials</a>
+    <ul class="nav docs-sidenav">
+      
+      <li class="active">
+        <a href="/tutorial/example/">QIIME2 &amp; PICRUSt</a>
+      </li>
+      
+    </ul>
+    
+
+  </div>
+  
+  
+</nav>
+
+    </div>
+
+    
+    <div class="d-none d-xl-block col-xl-2 docs-toc">
+      
+      <p class="docs-toc-title">On this page</p>
+      
+
+      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#summary">Summary</a></li>
+</ul></li>
+<li><a href="#before-getting-started">Before getting started</a>
+<ul>
+<li><a href="#install">Install</a></li>
+</ul></li>
+<li><a href="#getting-started">Getting started</a>
+<ul>
+<li>
+<ul>
+<li><a href="#fastq-files">FASTQ files</a></li>
+<li><a href="#metadata-file">Metadata file</a></li>
+<li><a href="#qiime2">QIIME2</a></li>
+</ul></li>
+<li><a href="#demultiplexing-sequences">Demultiplexing sequences</a>
+<ul>
+<li><a href="#q-scores-and-no-reads">Q scores and no. reads</a></li>
+<li><a href="#fastqc">FastQC</a></li>
+</ul></li>
+<li><a href="#quality-filtering-and-asv-table">Quality filtering and ASV table</a>
+<ul>
+<li><a href="#dada2">DADA2</a></li>
+</ul></li>
+<li><a href="#taxonomic-assignment">Taxonomic assignment</a></li>
+<li><a href="#alpha-and-beta-diversity">Alpha and beta diversity</a>
+<ul>
+<li><a href="#phylogenetic-tree">Phylogenetic tree</a></li>
+<li><a href="#core-diversity-analysis">Core diversity analysis</a></li>
+<li><a href="#beta-diversity">Beta diversity</a>
+<ul>
+<li><a href="#unweighted-unifrac">Unweighted UniFrac</a></li>
+<li><a href="#weighted-unifrac">Weighted UniFrac</a></li>
+</ul></li>
+<li><a href="#alpha-diversity">Alpha diversity</a>
+<ul>
+<li><a href="#rarefaction">Rarefaction</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#metagenomic-prediction-based-on-16s-profiles">Metagenomic prediction based on 16S profiles</a>
+<ul>
+<li><a href="#picrust">PICRUSt</a></li>
+<li><a href="#before-starting">Before starting</a></li>
+<li><a href="#closed-reference-method-pipeline">Closed-reference method: pipeline</a>
+<ul>
+<li><a href="#join-paired-end-reads">Join paired-end reads</a></li>
+<li><a href="#filter-based-on-q-scores">Filter based on Q scores</a></li>
+<li><a href="#dereplicating-sequences">Dereplicating sequences</a></li>
+<li><a href="#closed-reference-clustering">Closed-reference clustering</a></li>
+</ul></li>
+<li><a href="#scripts">Scripts</a>
+<ul>
+<li><a href="#normalize-16s-rrna-gene-copy-numbers-in-picrust">Normalize 16S rRNA gene copy numbers in PICRUSt</a></li>
+<li><a href="#predict-the-metagenome-using-the-normalized-otu-table-produced-before">Predict the metagenome using the normalized OTU table produced before</a></li>
+<li><a href="#categorize-at-level-l3-the-metabolic-profile-using-qiime">Categorize at level L3 the metabolic profile using QIIME</a></li>
+<li><a href="#plot-the-metabolism-profile-at-level-3">Plot the metabolism profile at level 3</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
+</ul></li>
+</ul>
+</nav>
+
+      <ul class="nav toc-top">
+        <li><a href="#">Back to top</a></li>
+      </ul>
+
+      
+    </div>
+    
+
+    <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role="main">
+
+      <article class="article" itemscope itemtype="http://schema.org/Article">
+
+        <div class="docs-article-container">
+          <h1 itemprop="name">QIIME2 &amp; PICRUSt tutorials</h1>
+
+          <div class="article-style" itemprop="articleBody">
+            
+
+<p><br></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>First of all you need to understand the data before start. Several considerations should be taken into account before the data analysis begin depending on the sequencing technology, library preparation/chemistry, and amplicon region chosen. This tutorial has the purpose to preprocess/filter, assign taxonomy, and explore diversity
+patterns of 16S rRNA amplicon sequencing data from Illumina MiSeq with the new version of QIIME - <strong>QIIME2</strong>. In addition, we wil use the 16S taxonomic profiles to predict metagenomic content with <strong>PICRUSt</strong>. To this end, we will carry out this tutorial with few samples (n=3) from the large campaign of <a href="https://www.microb3.eu/events/workshops/ocean-sampling-day-2014.html" target="_blank">Ocean Sampling Day 2014</a> (henceforward <strong>OSD14</strong>).</p>
+
+<p>Processing sequence reads into comprehensive biological information consists in decreasing the level of complexity
+from these large datasets using high performance algorithms integrated in bioinformatics pipelines.
+The following steps are often neccessary to carry out (not necessarily by this order):</p>
+
+<ol>
+<li><em>demultiplex the raw amplicon libraries into samples based on barcodes/indexes sequences</em>;</li>
+<li><em>join paired-end reads (only for Illumina)</em>;</li>
+<li><em>filter the reads based on quality (Phred) scores, length, homopolymers, etc</em>;</li>
+<li><em>align reads for further quality control (optional)</em>;</li>
+<li><em>merge equal/unique sequences (100%) - aka dereplication</em>;</li>
+<li><em>detect and remove artificial sequences with multi parent origin produced during PCR amplification - aka chimeras</em>;</li>
+
+<li><p><em>cluster unique sequences into operational taxonomic units (OTUs) based on user-defined threshold</em>;</p>
+
+<ul>
+<li>new algorithms/pipelines such as <a href="https://www.nature.com/articles/nmeth.3869" target="_blank">DADA2</a> and <a href="http://msystems.asm.org/content/2/2/e00191-16" target="_blank">Deblur</a> offer an alternative to the steps 2-7 and 3-7, respectively. Basically, DADA2 tries to eliminate any sequencing error based on Poisson probabilist distribution of each partition (unique reads), and Deblur removes this sequencing error through error profiles and Hamming distance between two sequences. Then, both remove chimeras. Unlike the above mentioned, the sequences are not clustered into OTUs, but instead kept as exact sequences. Therefore, these &lsquo;exact sequences&rsquo; (aka &lsquo;amplicon sequence variants&rsquo; (henceforward ASVs) or &lsquo;sub-OTUs&rsquo;) could diverge as little as 1 nucleotide. Please, for more details have a look into the papers (above links) and the respective tutorials/source codes: <a href="https://benjjneb.github.io/dada2/index.html" target="_blank">DADA2</a> and <a href="https://github.com/biocore/deblur" target="_blank">Deblur</a>. In addition, read the paper of <a href="https://www.nature.com/articles/nature24621" target="_blank">Thompson et al., 2017</a> to understand better the differences between OTUs-ASVs and their implications.</li>
+</ul></li>
+
+<li><p><em>classify taxonomically OTUs/ASVs using a non-redundant, reference database</em>.<sup><a href="#fn1">adapted from 1</a></sup></p></li>
+</ol>
+
+<p><br></p>
+
+<h3 id="summary">Summary</h3>
+
+<p>Theoretical and practical introduction to:</p>
+
+<ul>
+<li><p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/" target="_blank">FastQC</a></p>
+
+<ul>
+<li>assess fastq feature-related information<br /></li>
+</ul></li>
+
+<li><p><a href="https://qiime2.org" target="_blank">QIIME2</a> (Quantitative Insights Into Microbial Ecology 2)</p>
+
+<ul>
+<li><p>upstream analysis</p>
+
+<ul>
+<li>prepocessing</li>
+<li>chimera identification and exclusion</li>
+<li>dereplication</li>
+<li>denoising(ASVs)/clustering(OTUs)</li>
+<li>taxonomic classification
+<br /></li>
+</ul></li>
+
+<li><p>downstream analysis:</p>
+
+<ul>
+<li>summarise taxonomic analysis</li>
+<li>phylogenetic tree</li>
+<li>alpha and beta diversity</li>
+</ul></li>
+</ul></li>
+
+<li><p><a href="https://picrust.github.io/picrust/" target="_blank">PICRUSt</a> (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States)</p>
+
+<ul>
+<li><p>KEGG (Kyoto Encyclopedia of Genes and Genomes) database</p></li>
+
+<li><p>COG (Cluster of Ortholog Genes) database</p></li>
+
+<li><p>summarise the results at different levels (using QIIME)</p></li>
+</ul></li>
+</ul>
+
+<p><br></p>
+
+<p><strong>Note</strong>: In practice, this tutorial should not take more than ≈22 min. (1276 secs.) running on a computer with 4 cores, and 8 Gb RAM memory.</p>
+
+<p><br></p>
+
+<h2 id="before-getting-started">Before getting started</h2>
+
+<h3 id="install">Install</h3>
+
+<ul>
+<li><p><a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/" target="_blank"><strong>FastQC</strong></a> (click on it and follow
+the instructions)</p></li>
+
+<li><p><a href="https://docs.qiime2.org/2018.2/install/" target="_blank"><strong>QIIME2</strong></a> (click on it and follow
+the instructions)</p></li>
+
+<li><p><a href="https://picrust.github.io/picrust/install.html#install" target="_blank"><strong>PICRUSt</strong></a> (<strong>optional</strong>)</p></li>
+</ul>
+
+<p><br></p>
+
+<p>Download this repository!</p>
+
+<p><br></p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>As mentioned before, this tutorial will rely on few samples (n=3) from the large campaign of <a href="https://www.microb3.eu/events/workshops/ocean-sampling-day-2014.html" target="_blank"><strong>OSD14</strong></a>. The paired-end fastq files containing the 16S rRNA gene amplicon from Illumina MiSeq are publicly available at <em>European Nucleotide Archive</em> (<strong>ENA</strong>). In addition, this data was already processed through the <a href="https://www.ebi.ac.uk/metagenomics/pipelines/4.1" target="_blank">EBI Metagenomics</a> pipeline and the results are publicly available which allows us to compare them (search for <a href="https://www.ebi.ac.uk/metagenomics/projects/ERP009703" target="_blank"><strong>OSD</strong></a>). Therefore, since <strong>OSD14</strong> includes shotgun metagenomics data, we can also compare the results from functional predictions based on 16S rRNA gene profiling through <strong>PICRUSt</strong>.</p>
+
+<p><br></p>
+
+<h4 id="fastq-files">FASTQ files</h4>
+
+<p>Start by creating your working directory.</p>
+
+<pre><code>mkdir EcoBioTec_NGS_tutorial # create the folder 'EcoBioTec_NGS_tutorial'
+
+cd EcoBioTec_NGS_tutorial/ # move your current directory to the 'EcoBioTec_NGS_tutorial'
+</code></pre>
+
+<p>Then, download the <strong>fastq</strong> data files from the <a href="https://www.ebi.ac.uk/ena" target="_blank"><strong>ENA</strong></a> repository for each <strong>run accession</strong> that appears in the first table below using <strong>ftp</strong> (file transfer protocol).</p>
+
+<pre><code>ftp ftp.sra.ebi.ac.uk # connect to the EBI server
+
+Name: anonymous # user
+
+Password: name@e-mail # use your own e-mail
+
+cd vol1/fastq/ERR867/ERR867678 # change directory 
+
+get ERR867678_1.fastq.gz # the forward fastq file
+
+get ERR867678_2.fastq.gz # the reverse fastq file
+
+.
+.
+.
+
+bye # exit ftp
+</code></pre>
+
+<p><br></p>
+
+<h4 id="metadata-file">Metadata file</h4>
+
+<p>The metadata file, once called mapping file (in the previous version of QIIME), is a text
+file (in &lsquo;.tsv&rsquo; format - tab-separated values) that contains information about sequencing
+oligonucleotides used in our study, i.e., barcodes/indexes and primers, as well as
+environmental variables contextualizing the environment from where the samples were collected,
+i.e., lat/lon, concentration of nutrients, etc. This information will be important to demultiplex your samples based on barcodes, indexes; trim off your primeirs, etc. It is also possible to add information concerning
+some sample partition that could make sense for your own study. For example, imagine that you
+have samples from patients infected by some pathogenic bacteria and other set of samples from
+healthy patients. You can group your samples by healthy/infected. This information may be
+added to your metadata file and it will be very useful for downstream analysis.</p>
+
+<p>Now have a look into the table below.</p>
+
+<p><br></p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Sample</th>
+<th align="center">Run Accession</th>
+<th align="center">OSD identifier</th>
+<th align="center">Region</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">ERS667589</td>
+<td align="center">ERR867678</td>
+<td align="center">OSD73_2014-06-21_1m_NPL022</td>
+<td align="center">Viana do Castelo</td>
+</tr>
+
+<tr>
+<td align="center">ERS667588</td>
+<td align="center">ERR867675</td>
+<td align="center">OSD74_2014-06-21_1m_NPL022</td>
+<td align="center">Porto</td>
+</tr>
+
+<tr>
+<td align="center">ERS667554</td>
+<td align="center">ERR867927</td>
+<td align="center">OSD111_2014-06-21_0m_NPL022</td>
+<td align="center">Aveiro</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<p>The information above will be used to make our metadata file (below).</p>
+
+<p><br></p>
+
+<p>Write down the following information in a text file and save it as <strong>&lsquo;osd14_metadata.tsv&rsquo;</strong>.</p>
+
+<p><br></p>
+
+<table>
+<thead>
+<tr>
+<th align="center">#SampleID</th>
+<th align="center">BarcodeSequence</th>
+<th align="center">LinkerPrimerSequence</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">#q2:types</td>
+<td align="center">categorical</td>
+<td align="center">categorical</td>
+<td align="center">categorical</td>
+</tr>
+
+<tr>
+<td align="center">ERR867678</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">OSD73_2014-06-21_1m_NPL022</td>
+</tr>
+
+<tr>
+<td align="center">ERR867675</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">OSD74_2014-06-21_1m_NPL022</td>
+</tr>
+
+<tr>
+<td align="center">ERR867927</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">OSD111_2014-06-21_0m_NPL022</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<p>Then create a folder (as indicated below), and move the file into it.</p>
+
+<pre><code>mkdir metadata # create the folder
+
+mv osd14_metadata.tsv metadata/ # move the file into the folder
+</code></pre>
+
+<p><br></p>
+
+<h4 id="qiime2">QIIME2</h4>
+
+<p>QIIME2 is installed under a conda environment. Let&rsquo;s check if it is available:</p>
+
+<pre><code>conda info --envs # /Users/arenha/miniconda3/envs/qiime2-2018.4
+</code></pre>
+
+<p>Open it to get started!</p>
+
+<pre><code>source activate qiime2-2018.4
+</code></pre>
+
+<p><br></p>
+
+<p>First, you need to import your forward/reverse fastq files into QIIME2 compatible format (known as <a href="https://docs.qiime2.org/2018.2/concepts/" target="_blank">QIIME2 artifact file</a> - &lsquo;.<strong>qza</strong>&rsquo; format). To do so, you need also to provide information about which type of sequencing files you are providing to <strong>QIIME2</strong> (<a href="https://docs.qiime2.org/2018.2/tutorials/importing/" target="_blank">read about it</a>).</p>
+
+<p>The <strong>OSD14</strong> dataset used herein is composed by paired-end fastq files, already demultiplexed.  From the previous link, we will assume that our data fits under the <strong>“Fastq manifest” formats</strong>.</p>
+
+<p>You need to write down the information below and save it as <strong>source_info.csv</strong> (in &lsquo;.<strong>csv</strong>&rsquo; format).</p>
+
+<ul>
+<li>#paired-end PHRED 33 fastq manifest file for forward/reverse reads</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="center">sample-id</th>
+<th align="center">absolute-filepath</th>
+<th align="center">direction</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">ERR867678</td>
+<td align="center">$PWD/fastq/ERR867678_1.fastq.gz</td>
+<td align="center">forward</td>
+</tr>
+
+<tr>
+<td align="center">ERR867678</td>
+<td align="center">$PWD/fastq/ERR867678_2.fastq.gz</td>
+<td align="center">reverse</td>
+</tr>
+
+<tr>
+<td align="center">ERR867675</td>
+<td align="center">$PWD/fastq/ERR867675_1.fastq.gz</td>
+<td align="center">forward</td>
+</tr>
+
+<tr>
+<td align="center">ERR867675</td>
+<td align="center">$PWD/fastq/ERR867675_2.fastq.gz</td>
+<td align="center">reverse</td>
+</tr>
+
+<tr>
+<td align="center">ERR867927</td>
+<td align="center">$PWD/fastq/ERR867927_1.fastq.gz</td>
+<td align="center">forward</td>
+</tr>
+
+<tr>
+<td align="center">ERR867927</td>
+<td align="center">$PWD/fastq/ERR867927_2.fastq.gz</td>
+<td align="center">reverse</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<p>Type the following to import and convert <strong>fastq</strong> files to <strong>QIIME2 artifact file</strong> format:</p>
+
+<pre><code>qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path source_info.csv --source-format PairedEndFastqManifestPhred33 --output-path demux-paired-end_OSD14.qza
+</code></pre>
+
+<p><br></p>
+
+<p>There is also a different <em>QIIME artifact</em> file - &lsquo;.<strong>qzv</strong>&rsquo; - that will appear always that is generated a file, i.e., a table/plot, that can be vizualized.</p>
+
+<p>To vizualize the files with &lsquo;.<strong>qzv</strong>&rsquo; format do the following  (<em>always whenever necessary</em>):</p>
+
+<pre><code>qiime tools view your_file.qzv
+</code></pre>
+
+<p>On the other hand, if you want to export files from &lsquo;.<strong>qza</strong>&rsquo; format, do the following (<em>always whenever necessary</em>):</p>
+
+<pre><code>qiime tools export your_file.qza --output-dir your_output_dir
+</code></pre>
+
+<p><br></p>
+
+<h3 id="demultiplexing-sequences">Demultiplexing sequences</h3>
+
+<h4 id="q-scores-and-no-reads">Q scores and no. reads</h4>
+
+<p>In this case, you do not need to demultiplex your sequences, but you need to check the quality of your sequences. For that purpose, run the following:</p>
+
+<pre><code>qiime demux summarize --i-data demux-paired-end_OSD14.qza --o-visualization demux-paired-end_OSD14.qzv
+</code></pre>
+
+<p>The plots produced by QIIME2 are in &lsquo;<em>.qzv</em>&rsquo; extension. To visualize the plots you need to run the next script (as it was mentioned above):</p>
+
+<pre><code>qiime tools view demux-paired-end_OSD14.qzv
+</code></pre>
+
+<p><br></p>
+
+<p>The distribution of fastq scores over the forward and reverse reads should look like this: <img src="https://github.com/antonioggsousa/EcoBioTec-NGS-tutorial/blob/master/plots/fwd_rev_fastq.png" alt="FASTQ" /></p>
+
+<p><br></p>
+
+<p>You should also check the number of sequences per sample (below). In total the OSD14 dataset used herein holds 115 514 pair of reads.</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Sample name</th>
+<th align="center">Sequence count</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">ERR867678</td>
+<td align="center">33 830</td>
+</tr>
+
+<tr>
+<td align="center">ERR867675</td>
+<td align="center">40 648</td>
+</tr>
+
+<tr>
+<td align="center">ERR867927</td>
+<td align="center">41 036</td>
+</tr>
+</tbody>
+</table>
+
+<p><br></p>
+
+<h4 id="fastqc">FastQC</h4>
+
+<p>Since <strong>QIIME2</strong> produces only weak statistics about <strong>fastq</strong> files (<em>of course the quality control of fastq files is not the aim of QIIME2!</em>), in addition to <strong>QIIME2</strong> we will use a different software, <strong>FastQC</strong> (<em>developed with the aim of control the quality of fastq data!</em>), developded for that purpose.</p>
+
+<p><strong>FastQC</strong> is a java-based software to check, assess and control the quality of fastq data through multiple analysis given through plots for easier interpretation and decision (check the <a href="https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf" target="_blank">manual</a>).</p>
+
+<p><br></p>
+
+<p>Run <strong>FastQC</strong> over each <strong>fastq</strong> file (forward and reverse; <em>do the same for all fastq.gz files</em>):</p>
+
+<pre><code>/Applications/FastQC.app/Contents/MacOS/fastqc fastq/ERR867678_1.fastq.gz
+
+/Applications/FastQC.app/Contents/MacOS/fastqc fastq/ERR867678_2.fastq.gz
+
+.
+.
+.
+</code></pre>
+
+<p>Create the folder <strong>fastqc</strong>:</p>
+
+<pre><code>mkdir fastqc
+</code></pre>
+
+<p>Move the <strong>fastqc</strong> <em>html</em> reports from <strong>fastq</strong> directory to the <strong>fastqc</strong> folder:</p>
+
+<pre><code>mv fastq/*.zip fastq/*.html fastqc/
+</code></pre>
+
+<p><br></p>
+
+<p>Open each <strong>fastqc</strong> <em>html</em> report created for each file to have a look into the statistics, like: no. of reads, Q scores per bp, etc.</p>
+
+<p><br></p>
+
+<h3 id="quality-filtering-and-asv-table">Quality filtering and ASV table</h3>
+
+<h4 id="dada2">DADA2</h4>
+
+<p><strong>DADA2</strong> is a <em>Divisive Amplicon Denoising Algorithm</em> but at the same time is <em>per se</em> a pipeline, since it filters reads (based on length and Q scores) as well as chimeras; joins paired-end reads; denoises and dereplicates sequences (giving as output one <strong>ASV table</strong>).</p>
+
+<p>Run the <strong>DADA2</strong> algorithm/pipeline:</p>
+
+<pre><code>qiime dada2 denoise-paired --i-demultiplexed-seqs demux-paired-end_OSD14.qza --p-trunc-len-f 225 --p-trunc-len-r 225 --p-n-reads-learn 30000 --p-n-threads 4 --o-representative-sequences rep-seqs-dada2_OSD14.qza --o-table table-dada2_OSD14.qza --output-dir dada2-dmx-pe_OSD14
+</code></pre>
+
+<p><br></p>
+
+<p>Basically, this <strong>dada2</strong> plugin takes the <strong>fastq</strong> files in <em>QIIME artifact</em> format - <strong>&lsquo;demux-paired-end_OSD14.qza&rsquo;</strong> - and outputs the following: representative sequences for each <em>ASV</em> - <strong>&lsquo;rep-seqs-dada2_OSD14.qza&rsquo;</strong> -, <em>ASV table</em> - <strong>&lsquo;table-dada2_OSD14.qza&rsquo;</strong> -, and some statistics - <strong>&lsquo;denoising_stats.qza&rsquo;</strong>.</p>
+
+<p><br></p>
+
+<p>The results produced above can be summarized and vizualized using the following plugins:</p>
+
+<pre><code>qiime feature-table summarize --i-table table-dada2_OSD14.qza --o-visualization table-dada2_OSD14.qzv --m-sample-metadata-file metadata/osd14_metadata.tsv
+
+qiime tools view table-dada2_OSD14.qzv
+
+qiime feature-table tabulate-seqs --i-data rep-seqs-dada2_OSD14.qza --o-visualization rep-seqs-dada2_OSD14.qzv
+
+qiime tools view rep-seqs-dada2_OSD14.qzv
+</code></pre>
+
+<p><br></p>
+
+<h3 id="taxonomic-assignment">Taxonomic assignment</h3>
+
+<p>We already have the <strong>ASV table</strong> (with the frequency of occurrence of each <em>ASV</em> sequence) as well as <strong>representative sequences</strong> (for each <em>ASV</em>).</p>
+
+<p>Now, we will classify the <strong>ASVs representative sequences</strong> using the <strong>Naive Bayes classifier</strong>. As any other classifier, the accuracy of <strong>Naive Bayes classifier</strong> depends on training data, i.e., the 16S rRNA gene database. It has been proved that training only the hypervariable region targeted by the primers used in the study in question improves the accuracy of <strong>Naive Bayes classifier</strong>.</p>
+
+<p>For the purpose of this tutorial we will not train the classifier (<a href="https://docs.qiime2.org/2018.4/tutorials/feature-classifier/" target="_blank"><em>see how to train the classifier!</em></a>), but instead we will used a pretrained classifier (<em>although not totally recommend!</em>) - <strong>Greengenes 13_8 99% OTUs full-length sequences</strong>.</p>
+
+<p>First, download the Greengenes database and check their integrity (with <strong>MD5 checksum</strong>):</p>
+
+<pre><code>wget -O &quot;gg-13-8-99-classifier.qza&quot; &quot;https://data.qiime2.org/2018.4/common/gg-13-8-99-nb-classifier.qza&quot;
+
+md5 gg-13-8-99-classifier.qza
+</code></pre>
+
+<p>If the result of <strong>MD5 checksum</strong> is the same as <em>MD5: bb72a9e3f1a4c810dd50bceef3508105</em>, it means that the database was properly downloaded (<em>in our case should give this: MD5 (gg-13-8-99-classifier.qza) = bb72a9e3f1a4c810dd50bceef3508105</em>).</p>
+
+<p><strong>Note:</strong> You should keep in mind that <strong>Greengenes</strong> is <strong>not updated</strong> since <strong>May, 2013</strong>.</p>
+
+<p>Then, classify the <strong>ASVs representative sequences</strong> with <strong>Naives Bayes classifier</strong>:</p>
+
+<pre><code>qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-classifier.qza --i-reads rep-seqs-dada2_OSD14.qza --o-classification taxonomy-rep-seqs-dada2_OSD14.qza
+</code></pre>
+
+<p>Finally, get your <strong>ASV table</strong> with <strong>taxonomy</strong>:</p>
+
+<pre><code>qiime metadata tabulate --m-input-file taxonomy-rep-seqs-dada2_OSD14.qza --o-visualization taxonomy-rep-seqs-dada2_OSD14.qzv 
+
+qiime tools view taxonomy-rep-seqs-dada2_OSD14.qzv
+</code></pre>
+
+<p>Get the prokaryotic profile (<em>barplot it!</em>):</p>
+
+<pre><code>qiime taxa barplot --i-table table-dada2_OSD14.qza --i-taxonomy taxonomy-rep-seqs-dada2_OSD14.qza --m-metadata-file metadata/osd14_metadata.tsv --o-visualization taxa-bar-plots_OSD14.qzv
+
+qiime tools view taxa-bar-plots_OSD14.qzv
+</code></pre>
+
+<p>The profile at <strong>phylum level</strong> should look like this:</p>
+
+<p><a href="https://github.com/antonioggsousa/EcoBioTec-NGS-tutorial/blob/master/plots/barplot_taxa.png" target="_blank">taxa bar plot</a></p>
+
+<h3 id="alpha-and-beta-diversity">Alpha and beta diversity</h3>
+
+<h4 id="phylogenetic-tree">Phylogenetic tree</h4>
+
+<p>Several diversity metrics are based on phylogenetic methods requiring a phylogenetic tree. Therefore, for that purpose we will do a maximum-likelihood tree (ML).</p>
+
+<p>First, you need to perform a multiple sequence alignment (MSA) with <strong>MAFFT</strong>:</p>
+
+<pre><code>qiime alignment mafft --i-sequences rep-seqs-dada2_OSD14.qza --o-alignment mafft-rep-seqs-dada2_OSD14.qza
+</code></pre>
+
+<p>Then, eliminate the highly variable positions, to avoid overestimate distances:</p>
+
+<pre><code>qiime alignment mask --i-alignment mafft-rep-seqs-dada2_OSD14.qza --o-masked-alignment masked-msa-rep-seqs-dada2_OSD14.qza
+</code></pre>
+
+<p>Finaly, build the ML tree with <strong>FastTree</strong>:</p>
+
+<pre><code>qiime phylogeny fasttree --i-alignment masked-msa-rep-seqs-dada2_OSD14.qza --o-tree unroot-ml-tree-masked_OSD14.qza
+</code></pre>
+
+<p>Additionally, root your unrooted tree based on midpoint rooting method:</p>
+
+<pre><code>qiime phylogeny midpoint-root --i-tree unroot-ml-tree-masked_OSD14.qza --o-rooted-tree root-ml-tree_OSD14.qza
+</code></pre>
+
+<p><br></p>
+
+<h4 id="core-diversity-analysis">Core diversity analysis</h4>
+
+<p><strong>QIIME</strong> was built-in on <em>scripts</em> that perform several instructions in order to automatize routine tasks. <strong>QIIME2</strong> works in a similar manner but instead of <em>scripts</em> you have now the <em>plugins</em>. The <strong>core diversity analysis</strong> plugin is not an exception and therefore it performs several diversity metrics by default.</p>
+
+<p>An important consideration of every downstream analysis is the different number of sequences <em>per</em> sample that bias any estimation sensitive to sampling. Therefore, there is a comman approach (<em>not neccessarily the best one!</em>) to deal with this issue that is called <strong>rarefaction</strong>. <strong>Rarefaction</strong> is the proccess of subsample randomly each sample at even sampling depth (<em>normally to the sample with the lowest no. of reads!</em>).</p>
+
+<p>To have an ideia of which is the most proper no. of sequences to <strong>subsample</strong>, run the next plugin:</p>
+
+<pre><code>qiime tools view table-dada2_OSD14.qzv
+</code></pre>
+
+<p>Then, run the <strong>core diversity analysis</strong> plugin choosing the <strong>phylogenetic</strong> pipeline:</p>
+
+<pre><code>qiime diversity core-metrics-phylogenetic --i-phylogeny root-ml-tree_OSD14.qza --i-table table-dada2_OSD14.qza --p-sampling-depth 20000 --m-metadata-file metadata/osd14_metadata.tsv --output-dir core-metrics-results
+</code></pre>
+
+<p><br></p>
+
+<h4 id="beta-diversity">Beta diversity</h4>
+
+<h5 id="unweighted-unifrac">Unweighted UniFrac</h5>
+
+<p><strong>Unweighted UniFrac</strong> allows to assess how the prokaryotic communities cluster together based on the branches shared between communities.</p>
+
+<p>Type the next plugin to have a look at <strong>PCoA</strong> built with the <strong>Unweighted UniFrac</strong> metric:</p>
+
+<pre><code>qiime tools view core-metrics-results/unweighted_unifrac_emperor.qzv
+</code></pre>
+
+<p>It should look like this:</p>
+
+<p><a href="https://github.com/antonioggsousa/EcoBioTec-NGS-tutorial/blob/master/plots/unweighted_unifrac.png" target="_blank">unweighted unifrac</a></p>
+
+<h5 id="weighted-unifrac">Weighted UniFrac</h5>
+
+<p>On the other hand, <strong>Weighted UniFrac</strong> allows to assess how the prokaryotic communities cluster together based on the weighted (<em>abundance of ASVs!</em>) branches shared between communities.</p>
+
+<p>Type the next plugin to have a look at <strong>PCoA</strong> built with the <strong>Weighted UniFrac</strong> metric:</p>
+
+<pre><code>qiime tools view core-metrics-results/weighted_unifrac_emperor.qzv
+</code></pre>
+
+<p>It should look like this:</p>
+
+<p><a href="https://github.com/antonioggsousa/EcoBioTec-NGS-tutorial/blob/master/plots/weighted_unifrac.png" target="_blank">weighted unifrac</a></p>
+
+<p><br></p>
+
+<h4 id="alpha-diversity">Alpha diversity</h4>
+
+<h5 id="rarefaction">Rarefaction</h5>
+
+<p><strong>Rarefaction</strong> is also used to assess if the <em>sequencing effort</em> was enough to catch all the diversity present within each sample.</p>
+
+<p>Run the following to see the rarefaction plots:</p>
+
+<pre><code>qiime diversity alpha-rarefaction --i-table table-dada2_OSD14.qza --i-phylogeny root-ml-tree_OSD14.qza --p-max-depth 20000 --m-metadata-file metadata/osd14_metadata.tsv --o-visualization alpha-rarefaction_OSD14.qzv
+
+qiime tools view alpha-rarefaction_OSD14.qzv
+</code></pre>
+
+<p>The <strong>rarefaction curves</strong> should look like this:</p>
+
+<p><a href="https://github.com/antonioggsousa/EcoBioTec-NGS-tutorial/blob/master/plots/rarefaction.png" target="_blank">rarefaction</a></p>
+
+<p><br></p>
+
+<p>The curves of observed no. of ASVs <em>per</em> sample seem very flatted what is an indication of a enough <strong>sequencing effort</strong> to catch the diversity of these communities.</p>
+
+<p><br>
+<br>
+<br></p>
+
+<h2 id="metagenomic-prediction-based-on-16s-profiles">Metagenomic prediction based on 16S profiles</h2>
+
+<h3 id="picrust">PICRUSt</h3>
+
+<p><a href="http://picrust.github.io/picrust/" target="_blank"><strong>PICRUSt</strong></a> is described in detail in <a href="https://www.nature.com/articles/nbt.2676" target="_blank">Langille et al., 2013</a>.</p>
+
+<p><br></p>
+
+<h3 id="before-starting">Before starting</h3>
+
+<p><strong>PICRUSt</strong> requires an <strong>OTU table</strong> (<em>an not an ASV table!</em>) built with the <strong>closed reference method</strong>. Basically, the <strong>closed reference method</strong> compares each <strong>OTU representative sequence</strong> with the references sequences available in a given database; if the <strong>OTU representative sequence</strong> has high similarity with one reference sequence in the given database, this <strong>OTU</strong> is kept, otherwise it is discarded. Since <strong>PICRUSt</strong> was pretrained with <strong>Greengenes database v.13.5</strong>, the user should use this database as reference in <strong>closed reference method</strong>, or alternatively train the database used during the <strong>closed reference method</strong>.</p>
+
+<p><br></p>
+
+<h3 id="closed-reference-method-pipeline">Closed-reference method: pipeline</h3>
+
+<h4 id="join-paired-end-reads">Join paired-end reads</h4>
+
+<pre><code>mkdir PICRUSt
+
+cd PICRUSt
+
+cp ../demux-paired-end_OSD14.qza .
+
+qiime vsearch join-pairs --i-demultiplexed-seqs demux-paired-end_OSD14.qza --p-allowmergestagger --o-joined-sequences dmx-jpe_OSD14.qza
+</code></pre>
+
+<h4 id="filter-based-on-q-scores">Filter based on Q scores</h4>
+
+<pre><code>qiime quality-filter q-score-joined --i-demux dmx-jpe_OSD14.qza --o-filtered-sequences dmx-jpe-filter_OSD14.qza --o-filter-stats dmx-jpe-filter-stats.qza
+</code></pre>
+
+<h4 id="dereplicating-sequences">Dereplicating sequences</h4>
+
+<pre><code>qiime vsearch dereplicate-sequences --i-sequences dmx-jpe-filter_OSD14.qza --o-dereplicated-table drpl-tbl_OSD14.qza --o-dereplicated-sequences drpl-seqs.qza
+</code></pre>
+
+<h4 id="closed-reference-clustering">Closed-reference clustering</h4>
+
+<p>First download the <strong><em>Greengenes database v.13.5</em></strong>:</p>
+
+<pre><code>wget ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_5_otus.tar.gz # download DB
+
+
+tar -xvzf gg_13_5_otus.tar.gz # uncompress DB
+
+
+qiime tools import --type 'FeatureData[Sequence]' --input-path gg_13_5_otus/rep_set/97_otus.fasta --output-path 97_otus-GG.qza # import fasta seqs
+
+qiime tools import --type 'FeatureData[Taxonomy]' --source-format HeaderlessTSVTaxonomyFormat --input-path gg_13_5_otus/taxonomy/97_otu_taxonomy.txt --output-path 97_otu-ref-taxonomy-GG.qza # import taxonomy
+</code></pre>
+
+<p><br></p>
+
+<p>Then, do the <strong>OTU clustering</strong> at <strong>97%</strong>:</p>
+
+<pre><code>qiime vsearch cluster-features-closed-reference --i-table drpl-tbl_OSD14.qza --i-sequences drpl-seqs.qza --i-reference-sequences 97_otus-GG.qza --p-perc-identity 0.97 --o-clustered-table tbl-cr-97_OSD14.qza --o-clustered-sequences rep-seqs-cr-97_OSD14.qza --o-unmatched-sequences unmatched-cr-97_OSD14.qza
+</code></pre>
+
+<p><br></p>
+
+<p>Export the <strong>OTU table</strong>.</p>
+
+<pre><code>qiime tools export tbl-cr-97_OSD14.qza --output-dir .
+</code></pre>
+
+<p>Now you have your table in <strong>biom</strong> format - <strong>feature-table.biom</strong> (<em>the OTU table in biom format!</em>).</p>
+
+<p>Convert to <strong>json</strong> format:</p>
+
+<pre><code>biom convert -i feature-table.biom -o feature-table.json.biom --to-json
+</code></pre>
+
+<p>Now, we will use the <a href="http://galaxy.morganlangille.com" target="_blank"><strong>Galaxy</strong></a> version of <strong>PICRUSt</strong> (<em>then follow the instructions!</em>).</p>
+
+<p>Download the <strong>biom table</strong> that resulted from <strong>metagenome prediciton</strong> step.</p>
+
+<p>Next, convert this <strong>biom table</strong> into <strong>tsv table</strong> with <a href="http://biom-format.org/documentation/biom_conversion.html" target="_blank"><strong>biom</strong></a> program:</p>
+
+<pre><code>biom convert -i Galaxy3-[Predict_Metagenome_on_data_2].biom -o meta-predic_OSD14.tsv --to-tsv
+</code></pre>
+
+<p><strong>Note:</strong> for some reason the <strong>KO</strong> associated function does not appear discriminated (<em>run locally the scripts below to get KOs and the respective functions associated!</em>).</p>
+
+<p>Open the <strong>meta-predic_OSD14.tsv</strong> table to have a look into the <strong>KOs</strong> distribution across samples.</p>
+
+<p><br></p>
+
+<p>You can quit <strong>QIIME2</strong> through:</p>
+
+<pre><code>source deactivate
+</code></pre>
+
+<p><br></p>
+
+<h3 id="scripts">Scripts</h3>
+
+<p>For instance if you prefer to do it locally, run the following scripts to get the same information.</p>
+
+<h4 id="normalize-16s-rrna-gene-copy-numbers-in-picrust">Normalize 16S rRNA gene copy numbers in PICRUSt</h4>
+
+<pre><code>normalize_by_copy_number.py -i feature-table.biom -o normalized_feature-table.biom
+</code></pre>
+
+<h4 id="predict-the-metagenome-using-the-normalized-otu-table-produced-before">Predict the metagenome using the normalized OTU table produced before</h4>
+
+<pre><code>predict_metagenomes.py -f -i normalized_feature-table.biom -o kegg_metagenome_predictions.tab # get a tsv table
+
+predict_metagenomes.py -i normalized_feature-table.biom -o kegg_metagenome_predictions.biom # get a biom table to use below
+</code></pre>
+
+<p><br></p>
+
+<p>Write down the following information (<em>basically specifying which functional DB did you use - KEGG - and the desired level to plot it -3</em>) and save it as <strong>qiime_params_l3.txt</strong> file format:</p>
+
+<p><strong>summarize_taxa:md_identifier &ldquo;KEGG_Pathways</strong></p>
+
+<p><strong>summarize_taxa:absolute_abundance True</strong></p>
+
+<p><strong>summarize_taxa:level 3</strong></p>
+
+<pre><code>mv ../qiime_params_l3.txt ./
+</code></pre>
+
+<p><br></p>
+
+<p>Finalize this tutorial with a simple barplot with the predictions of functional metagenomic content (<em>unfortunately I need to use QIIME v.1.9.1!</em>).</p>
+
+<pre><code>macqiime # open it 
+</code></pre>
+
+<h4 id="categorize-at-level-l3-the-metabolic-profile-using-qiime">Categorize at level L3 the metabolic profile using QIIME</h4>
+
+<pre><code>categorize_by_function.py -i kegg_metagenome_predictions.biom -c &quot;KEGG_Pathways&quot; -l 3 -o kegg_metagenome_predictions_at_level3.biom
+</code></pre>
+
+<h4 id="plot-the-metabolism-profile-at-level-3">Plot the metabolism profile at level 3</h4>
+
+<pre><code>summarize_taxa_through_plots.py -i kegg_metagenome_predictions_at_level3.biom -p qiime_params_l3.txt -o plots_at_level3
+</code></pre>
+
+<p><br></p>
+
+<p>The final result should look like this:</p>
+
+<p><a href="https://github.com/antonioggsousa/EcoBioTec-NGS-tutorial/blob/master/plots/picrust.png" target="_blank">PICRUSt</a></p>
+
+<p><br></p>
+
+<p><br></p>
+
+<p><br></p>
+
+<p>🤘 Now you&rsquo;re ready to <strong>Rock&rsquo;N Roll</strong> 🤘 🍺 🍺</p>
+
+<p><br>
+<br>
+<br>
+<br></p>
+
+<p><strong>LAST NOTE:</strong> You should not forget to give credit to the researchers behind every algorithm wrappered in <strong>QIIME2</strong>! To find the proper citation for each of them, type:</p>
+
+<pre><code>qiime &lt;plugin&gt; --citations
+</code></pre>
+
+<p><br>
+<br></p>
+
+<h2 id="disclaimer">Disclaimer</h2>
+
+<p>All the data used herein was made public elsewhere (proper links were provided along the tutorial). This tutorial was based on others publicly available on <strong>QIIME2</strong> official website. The results generated have just the general purpose to give a brief introduction to the analysis of 16S amplicon NGS data with <strong>QIIME2</strong> and functional prediciton with <strong>PICRUSt</strong>.</p>
+
+<p><br></p>
+
+<p><br></p>
+
+<p><br></p>
+
+<p><a name="fn1">1</a>: Gaspar Gonçalves de Sousa, A. (2017). Arctic microbiome and N-functions during the winter-spring transition. Masters Dissertation.</p>
+
+          </div>
+
+          
+
+        </div>
+
+        <div class="body-footer">
+          Last updated on Sep 9, 2018
+        </div>
+
+      </article>
+
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    &copy; 2019 António Sousa &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+  </p>
+</footer>
+
+
+    </main>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+      <script async defer src="//maps.googleapis.com/maps/api/js?key="></script>
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.25/gmaps.min.js" integrity="sha256-7vjlAeb8OaTrCXZkCNun9djzuB2owUsaO72kXaFDBJs=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js" integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin="anonymous"></script>
+    <script>
+      anchors.add();
+    </script>
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academic.min.d037ee5294b166a79dec317c58aea9cc.js"></script>
+
+    
+
+  </body>
+</html>
+
+

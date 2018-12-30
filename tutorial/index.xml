@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overview on António Sousa</title>
+    <link>https://antonioggsousa.github.io/tutorial/</link>
+    <description>Recent content in Overview on António Sousa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 António Sousa</copyright>
+    <lastBuildDate>Sat, 29 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://antonioggsousa.github.io/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>QIIME2 &amp; PICRUSt tutorials</title>
+      <link>https://antonioggsousa.github.io/tutorial/example/</link>
+      <pubDate>Sun, 09 Sep 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/tutorial/example/</guid>
+      <description>Introduction First of all you need to understand the data before start. Several considerations should be taken into account before the data analysis begin depending on the sequencing technology, library preparation/chemistry, and amplicon region chosen. This tutorial has the purpose to preprocess/filter, assign taxonomy, and explore diversity patterns of 16S rRNA amplicon sequencing data from Illumina MiSeq with the new version of QIIME - QIIME2. In addition, we wil use the 16S taxonomic profiles to predict metagenomic content with PICRUSt.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2 on António Sousa</title>
+    <link>https://antonioggsousa.github.io/publication_types/2/</link>
+    <description>Recent content in 2 on António Sousa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 António Sousa</copyright>
+    <lastBuildDate>Tue, 25 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://antonioggsousa.github.io/publication_types/2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Diversity and composition of pelagic prokaryotic and protist communities in a thin Arctic sea-ice regime</title>
+      <link>https://antonioggsousa.github.io/publication/microbial_ecology/</link>
+      <pubDate>Tue, 25 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/microbial_ecology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Potential of dissimilatory nitrate reduction pathways in polycyclic aromatic hydrocarbon degradation</title>
+      <link>https://antonioggsousa.github.io/publication/chemosphere/</link>
+      <pubDate>Tue, 01 May 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/chemosphere/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

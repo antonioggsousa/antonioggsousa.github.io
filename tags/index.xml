@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on António Sousa</title>
+    <link>https://antonioggsousa.github.io/tags/</link>
+    <description>Recent content in Tags on António Sousa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 António Sousa</copyright>
+    <lastBuildDate>Thu, 01 Sep 2016 00:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://antonioggsousa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Biodiversity</title>
+      <link>https://antonioggsousa.github.io/tags/biodiversity/</link>
+      <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/tags/biodiversity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Climate Change</title>
+      <link>https://antonioggsousa.github.io/tags/climate-change/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/tags/climate-change/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>N-Cycle</title>
+      <link>https://antonioggsousa.github.io/tags/n-cycle/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/tags/n-cycle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Project</title>
+      <link>https://antonioggsousa.github.io/tags/project/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/tags/project/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Seamounts</title>
+      <link>https://antonioggsousa.github.io/tags/seamounts/</link>
+      <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/tags/seamounts/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

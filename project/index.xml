@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on António Sousa</title>
+    <link>https://antonioggsousa.github.io/project/</link>
+    <description>Recent content in Projects on António Sousa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 António Sousa</copyright>
+    <lastBuildDate>Mon, 15 Oct 2018 00:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://antonioggsousa.github.io/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NANOSED</title>
+      <link>https://antonioggsousa.github.io/project/nanosed/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/nanosed/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NITROniceII</title>
+      <link>https://antonioggsousa.github.io/project/nitronice/</link>
+      <pubDate>Fri, 15 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/nitronice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MarRISK</title>
+      <link>https://antonioggsousa.github.io/project/marrisk/</link>
+      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/marrisk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Biometore</title>
+      <link>https://antonioggsousa.github.io/project/biometore/</link>
+      <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/biometore/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
