@@ -11,6 +11,30 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>GTDB and RefSeq-RDP DBs parsed for the addSpecies() dada2 function</title>
+      <link>https://antonioggsousa.github.io/post/gtdb_refseq_rdp_dbs/</link>
+      <pubDate>Tue, 11 Jun 2019 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/post/gtdb_refseq_rdp_dbs/</guid>
+      <description>&lt;p&gt;GTDB and RefSeq-RDP databases parsed for the addSpecies() dada2 function.
+Both databases were parsed with &lt;code&gt;parsing_DB_dada2_spp_assign.py&lt;/code&gt; python script using as input both databases downloaded at: &lt;a href=&#34;https://zenodo.org/record/2541239#.XM2UgCOZPOQ&#34; target=&#34;_blank&#34;&gt;https://zenodo.org/record/2541239#.XM2UgCOZPOQ&lt;/a&gt;.
+The python script and a detailed description explaining the code and databases versions can be found at:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/antonioggsousa/GTDB-RefSeq-RDP-assign-spp-dada2&#34; target=&#34;_blank&#34;&gt;Tutorial on GitHub&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://zenodo.org/record/2658728#.XQPMeCOZPOQ&#34; target=&#34;_blank&#34;&gt;Zenodo repository for download&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Actinobacteria and Cyanobacteria diversity in terrestrial Antarctic microenvironments evaluated by culture-dependent and independent methods</title>
       <link>https://antonioggsousa.github.io/publication/frontiersinmicrobiology/</link>
       <pubDate>Fri, 31 May 2019 00:00:00 +0100</pubDate>

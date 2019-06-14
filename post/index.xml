@@ -12,5 +12,16 @@
 	<atom:link href="https://antonioggsousa.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>GTDB and RefSeq-RDP DBs parsed for the addSpecies() dada2 function</title>
+      <link>https://antonioggsousa.github.io/post/gtdb_refseq_rdp_dbs/</link>
+      <pubDate>Tue, 11 Jun 2019 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/post/gtdb_refseq_rdp_dbs/</guid>
+      <description>GTDB and RefSeq-RDP databases parsed for the addSpecies() dada2 function. Both databases were parsed with parsing_DB_dada2_spp_assign.py python script using as input both databases downloaded at: https://zenodo.org/record/2541239#.XM2UgCOZPOQ. The python script and a detailed description explaining the code and databases versions can be found at:
+ Tutorial on GitHub
+ Zenodo repository for download</description>
+    </item>
+    
   </channel>
 </rss>
