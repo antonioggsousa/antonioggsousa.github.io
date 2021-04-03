@@ -6,7 +6,7 @@
     <description>Recent content in Homes on António Sousa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2019 António Sousa</copyright>
+    <copyright>&amp;copy; 2019-2021 António Sousa</copyright>
     <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://antonioggsousa.github.io/home/index.xml" rel="self" type="application/rss+xml" />
@@ -36,8 +36,8 @@
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0100</pubDate>
       
       <guid>https://antonioggsousa.github.io/home/about/</guid>
-      <description>whoami I&amp;rsquo;m a bioinformatician and microbial ecologist at the EcoBioTec research group, at the CiiMAR-UP. I&amp;rsquo;ve a BSc in Biology since 2015 and a MSc in Cell and Molecular Biology since 2017 both awarded by the Faculty of Sciences, University of Porto. During the last year, I increased my knowledge on bioinformatics completing with success 24 ECTS from a post-graduation studies on Bioinformatics and Computational Biology, FCUP.
-The research area that I have been interested in is a combination of microbiology, genomics/metagenomics and bioinformatics.</description>
+      <description>whoami I&amp;rsquo;m a bioinformatician working in the Bioinformatics Unit at Instituto Gulbenkian de Ciência (IGC), Oeiras, Portugal. I have an academic background in cell and molecular biology and experience in microbial ecology and bioinformatics. Experience with wet and dry laboratory methods acquired through several scientific projects during the last 5 years. Bioinformatic expertise with metabarcoding, metagenomics, bulk- and sc-RNA-seq data analysis using bash, R and python.
+Most of my research is around microbial ecology conducted during the time (2016-2019) that I worked in the EcoBioTec research group at CiiMAR-UP.</description>
     </item>
     
     <item>

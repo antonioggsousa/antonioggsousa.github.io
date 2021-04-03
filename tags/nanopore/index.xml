@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nanopore on António Sousa</title>
+    <link>https://antonioggsousa.github.io/tags/nanopore/</link>
+    <description>Recent content in Nanopore on António Sousa</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019-2021 António Sousa</copyright>
+    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://antonioggsousa.github.io/tags/nanopore/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>metaNanoPype</title>
+      <link>https://antonioggsousa.github.io/project/metananopype/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/metananopype/</guid>
+      <description>metaNanoPype: a reproducible Nanopore python pipeline for metabarcoding</description>
+    </item>
+    
+  </channel>
+</rss>

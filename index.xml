@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>António Sousa on António Sousa</title>
@@ -6,9 +5,81 @@
     <description>Recent content in António Sousa on António Sousa</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2019 António Sousa</copyright>
-    <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0100</lastBuildDate>
+    <copyright>&amp;copy; 2019-2021 António Sousa</copyright>
+    <lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0100</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>metaNanoPype</title>
+      <link>https://antonioggsousa.github.io/project/metananopype/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/metananopype/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>micrUBIfuns</title>
+      <link>https://antonioggsousa.github.io/project/micrubifuns/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/project/micrubifuns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Self-renewal of double negative 3 (DN3) early thymocytes allows for thymus autonomy but compromises the β-selection checkpoint</title>
+      <link>https://antonioggsousa.github.io/publication/biorxiv/</link>
+      <pubDate>Thu, 01 Apr 2021 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/biorxiv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Emerging investigator series: Prompt response of estuarine denitrifying bacterial communities to copper nanoparticles at relevant environmental concentrations</title>
+      <link>https://antonioggsousa.github.io/publication/env_science_nano/</link>
+      <pubDate>Wed, 24 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/env_science_nano/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The Response of Estuarine Ammonia-Oxidizing Communities to Constant and Fluctuating Salinity Regimes</title>
+      <link>https://antonioggsousa.github.io/publication/frontiersinmicrobiology_3/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/frontiersinmicrobiology_3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Distinct Temporal Succession of Bacterial Communities in Early Marine Biofilms in a Portuguese Atlantic Port</title>
+      <link>https://antonioggsousa.github.io/publication/frontiersinmicrobiology_2/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0100</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/frontiersinmicrobiology_2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Diversity of Bacterial Biosynthetic Genes in Maritime Antarctica</title>
+      <link>https://antonioggsousa.github.io/publication/microorganisms/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/microorganisms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Aerobic Ammonia-Oxidising Prokaryotes: A Perception of their Niche Segregation across Estuarine Salinity Gradients</title>
+      <link>https://antonioggsousa.github.io/publication/chapter/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://antonioggsousa.github.io/publication/chapter/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>GTDB and RefSeq-RDP DBs parsed for the addSpecies() dada2 function</title>
@@ -872,42 +943,6 @@ predict_metagenomes.py -i normalized_feature-table.biom -o kegg_metagenome_predi
       <guid>https://antonioggsousa.github.io/talk/talks/invited_seminar/</guid>
       <description>&lt;p&gt;Pelagic microbial communities are a key component of the Arctic Ocean when evaluating the ecological impact of the thinner Arctic icescape, as they constitute the basis of the marine food web and biogeochemical cycles. The Norwegian young sea ICE expedition 2015 that took place in the ice pack north of Svalbard, between January-June, provides the environmental context for the high-throughput Illumina amplicon and metagenomic sequencing data aiming to improve current knowledge about the structure of the Arctic’s microbiota and key nitrogen-cycling functions of the Arctic Ocean.&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Potential of dissimilatory nitrate reduction pathways in polycyclic aromatic hydrocarbon degradation</title>
-      <link>https://antonioggsousa.github.io/publication/chemosphere/</link>
-      <pubDate>Tue, 01 May 2018 00:00:00 +0100</pubDate>
-      
-      <guid>https://antonioggsousa.github.io/publication/chemosphere/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NITROniceII</title>
-      <link>https://antonioggsousa.github.io/project/nitronice/</link>
-      <pubDate>Fri, 15 Dec 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://antonioggsousa.github.io/project/nitronice/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MarRISK</title>
-      <link>https://antonioggsousa.github.io/project/marrisk/</link>
-      <pubDate>Wed, 01 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://antonioggsousa.github.io/project/marrisk/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Biometore</title>
-      <link>https://antonioggsousa.github.io/project/biometore/</link>
-      <pubDate>Thu, 01 Sep 2016 00:00:00 +0100</pubDate>
-      
-      <guid>https://antonioggsousa.github.io/project/biometore/</guid>
-      <description></description>
     </item>
     
   </channel>
