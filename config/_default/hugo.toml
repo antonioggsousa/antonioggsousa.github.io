@@ -2,6 +2,8 @@
 # Refer to the theme docs for more details about each of these parameters.
 # https://jpanther.github.io/congo/docs/getting-started/
 
+theme = "congo"
+
 baseURL = "https://antonioggsousa.github.io"
 defaultContentLanguage = "en"
 
@@ -29,3 +31,4 @@ summaryLength = 0
 [caches]
   [caches.images]
     dir = ":cacheDir/images"
+
